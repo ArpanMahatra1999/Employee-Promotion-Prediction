@@ -1,2 +1,2 @@
 # Employee-Promotion-Prediction
-A major challenge for a multinational company is identifying the right employees for promotion. To address this, the company created training and testing datasets with 12 input features. This project demonstrates the implementation of a decision tree and five ensemble learning algorithms using the training dataset.
+A major challenge for a multinational company is identifying the right employees for promotion. To address this, the company created training and testing datasets with 12 input features. This project demonstrates the implementation of a decision tree and five ensemble learning algorithms using the training dataset. Also, it has streamlit application with visualization to analyze why employee wasn't promoted.

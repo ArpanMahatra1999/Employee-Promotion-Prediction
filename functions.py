@@ -1,7 +1,7 @@
 # libraries
 import numpy as np
 import pandas as pd
-import joblib
+import pickle
 
 
 # getting only important features from inputs

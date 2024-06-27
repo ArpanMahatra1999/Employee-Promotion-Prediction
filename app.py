@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 def main():
     # app
     st.set_page_config(
-        page_title="Employee Promotion Prediction App",
+        page_title="Employee Promotion Prediction",
         page_icon="🧑‍💻")
 
     # add heading title
@@ -29,7 +29,7 @@ def main():
     </style>
     """
     st.markdown(title_style, unsafe_allow_html=True)
-    st.title("Employee Promotion Prediction App")
+    st.title("Employee Promotion Prediction")
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # add image

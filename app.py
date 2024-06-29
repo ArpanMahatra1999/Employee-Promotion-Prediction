@@ -218,7 +218,7 @@ def main():
                 unsafe_allow_html=True)
 
         with col2i:
-            st.image("https://s.yimg.com/ny/api/res/1.2/QZe.HGUzyvcL.zJFAe4SCQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTY0MDtjZj13ZWJw/https://media-mbst-pub-ue1.s3.amazonaws.com/creatr-images/2019-12/71049660-168c-11ea-ab5c-214bff5fb2ae", use_column_width=True)
+            st.image("images/intro.png", use_column_width=True)
 
         # add steps
         st.header("Steps")

@@ -114,98 +114,99 @@ def main():
         df_to_show = df.drop(columns_to_filter + ["employee_id"], axis=1)
         st.write(df_to_show.sample(10))
 
-        # first row
-        col1, col2, col3 = st.columns(3)
+        with st.container(border=True):
+            # first row
+            col1, col2, col3 = st.columns(3)
 
-        # education
-        with col1:
-            column = "education"
+            # education
+            with col1:
+                column = "education"
+                df_for_plot = promotion_percentage(df, column)
+                fig1, ax1 = plt.subplots()
+                ax1.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[3] else 'skyblue' for i in range(len(df_for_plot[column]))])
+                ax1.set_xlabel(column)
+                ax1.set_ylabel('Percentage of Promotion')
+                ax1.set_title(f"Promotion by {column}")
+                st.pyplot(fig1)
+
+            # gender
+            with col2:
+                column = "gender"
+                df_for_plot = promotion_percentage(df, column)
+                fig2, ax2 = plt.subplots()
+                ax2.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[4] else 'skyblue' for i in range(len(df_for_plot[column]))])
+                ax2.set_xlabel(column)
+                ax2.set_ylabel('Percentage of Promotion')
+                ax2.set_title(f"Promotion by {column}")
+                st.pyplot(fig2)
+
+            # no_of_trainings
+            with col3:
+                column = "no_of_trainings"
+                df_for_plot = promotion_percentage(df, column)
+                fig3, ax3 = plt.subplots()
+                ax3.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[6] else 'skyblue' for i in range(len(df_for_plot[column]))])
+                ax3.set_xlabel(column)
+                ax3.set_ylabel('Percentage of Promotion')
+                ax3.set_title(f"Promotion by {column}")
+                st.pyplot(fig3)
+
+            # age
+            column = "age"
+            plt.figure(figsize=(20, 6))
             df_for_plot = promotion_percentage(df, column)
-            fig1, ax1 = plt.subplots()
-            ax1.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[3] else 'skyblue' for i in range(len(df_for_plot[column]))])
-            ax1.set_xlabel(column)
-            ax1.set_ylabel('Percentage of Promotion')
-            ax1.set_title(f"Promotion by {column}")
-            st.pyplot(fig1)
+            plt.plot(df_for_plot[column], df_for_plot['percentage'], color="skyblue")
+            plt.scatter(df_for_plot[column], df_for_plot['percentage'], color=['red' if df_for_plot[column][i] == input_data[7] else 'skyblue' for i in range(len(df_for_plot[column]))])
+            plt.xlabel(column)
+            plt.ylabel('%')
+            plt.title(f"Promotion by {column}")
+            st.pyplot(plt)
 
-        # gender
-        with col2:
-            column = "gender"
+            col4, col5 = st.columns(2)
+
+            # education
+            with col4:
+                column = "previous_year_rating"
+                df_for_plot = promotion_percentage(df, column)
+                fig4, ax4 = plt.subplots()
+                ax4.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[8] else 'skyblue' for i in range(len(df_for_plot[column]))])
+                ax4.set_xlabel(column)
+                ax4.set_ylabel('Percentage of Promotion')
+                ax4.set_title(f"Promotion by {column}")
+                st.pyplot(fig4)
+
+            # gender
+            with col5:
+                column = "awards_won?"
+                df_for_plot = promotion_percentage(df, column)
+                fig5, ax5 = plt.subplots()
+                ax5.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[10] else 'skyblue' for i in range(len(df_for_plot[column]))])
+                ax5.set_xlabel(column)
+                ax5.set_ylabel('Percentage of Promotion')
+                ax5.set_title(f"Promotion by {column}")
+                st.pyplot(fig5)
+
+            # length_of_service
+            column = "length_of_service"
+            plt.figure(figsize=(20, 6))
             df_for_plot = promotion_percentage(df, column)
-            fig2, ax2 = plt.subplots()
-            ax2.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[4] else 'skyblue' for i in range(len(df_for_plot[column]))])
-            ax2.set_xlabel(column)
-            ax2.set_ylabel('Percentage of Promotion')
-            ax2.set_title(f"Promotion by {column}")
-            st.pyplot(fig2)
+            plt.plot(df_for_plot[column], df_for_plot['percentage'], color='skyblue')
+            plt.scatter(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[9] else 'skyblue' for i in range(len(df_for_plot[column]))])
+            plt.xlabel(column)
+            plt.ylabel('%')
+            plt.title(f"Promotion by {column}")
+            st.pyplot(plt)
 
-        # no_of_trainings
-        with col3:
-            column = "no_of_trainings"
+            # avg_training_score
+            column = "avg_training_score"
+            plt.figure(figsize=(20, 6))
             df_for_plot = promotion_percentage(df, column)
-            fig3, ax3 = plt.subplots()
-            ax3.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[6] else 'skyblue' for i in range(len(df_for_plot[column]))])
-            ax3.set_xlabel(column)
-            ax3.set_ylabel('Percentage of Promotion')
-            ax3.set_title(f"Promotion by {column}")
-            st.pyplot(fig3)
-
-        # age
-        column = "age"
-        plt.figure(figsize=(20, 6))
-        df_for_plot = promotion_percentage(df, column)
-        plt.plot(df_for_plot[column], df_for_plot['percentage'], color="skyblue")
-        plt.scatter(df_for_plot[column], df_for_plot['percentage'], color=['red' if df_for_plot[column][i] == input_data[7] else 'skyblue' for i in range(len(df_for_plot[column]))])
-        plt.xlabel(column)
-        plt.ylabel('%')
-        plt.title(f"Promotion by {column}")
-        st.pyplot(plt)
-
-        col4, col5 = st.columns(2)
-
-        # education
-        with col4:
-            column = "previous_year_rating"
-            df_for_plot = promotion_percentage(df, column)
-            fig4, ax4 = plt.subplots()
-            ax4.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[8] else 'skyblue' for i in range(len(df_for_plot[column]))])
-            ax4.set_xlabel(column)
-            ax4.set_ylabel('Percentage of Promotion')
-            ax4.set_title(f"Promotion by {column}")
-            st.pyplot(fig4)
-
-        # gender
-        with col5:
-            column = "awards_won?"
-            df_for_plot = promotion_percentage(df, column)
-            fig5, ax5 = plt.subplots()
-            ax5.bar(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[10] else 'skyblue' for i in range(len(df_for_plot[column]))])
-            ax5.set_xlabel(column)
-            ax5.set_ylabel('Percentage of Promotion')
-            ax5.set_title(f"Promotion by {column}")
-            st.pyplot(fig5)
-
-        # length_of_service
-        column = "length_of_service"
-        plt.figure(figsize=(20, 6))
-        df_for_plot = promotion_percentage(df, column)
-        plt.plot(df_for_plot[column], df_for_plot['percentage'], color='skyblue')
-        plt.scatter(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[9] else 'skyblue' for i in range(len(df_for_plot[column]))])
-        plt.xlabel(column)
-        plt.ylabel('%')
-        plt.title(f"Promotion by {column}")
-        st.pyplot(plt)
-
-        # avg_training_score
-        column = "avg_training_score"
-        plt.figure(figsize=(20, 6))
-        df_for_plot = promotion_percentage(df, column)
-        plt.plot(df_for_plot[column], df_for_plot['percentage'], color='skyblue')
-        plt.scatter(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[11] else 'skyblue' for i in range(len(df_for_plot[column]))])
-        plt.xlabel(column)
-        plt.ylabel('%')
-        plt.title(f"Promotion by {column}")
-        st.pyplot(plt)
+            plt.plot(df_for_plot[column], df_for_plot['percentage'], color='skyblue')
+            plt.scatter(df_for_plot[column], df_for_plot['percentage'], color=['tab:red' if df_for_plot[column][i] == input_data[11] else 'skyblue' for i in range(len(df_for_plot[column]))])
+            plt.xlabel(column)
+            plt.ylabel('%')
+            plt.title(f"Promotion by {column}")
+            st.pyplot(plt)
     else:
         st.title("Welcome to EPPA!")
 

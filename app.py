@@ -66,14 +66,19 @@ def main():
         button_style = '''
         <style>
         .stButton>button {
-            width: 150px;
+            width: 130px;
             height: 60px;
         }
         </style>
         '''
         st.markdown(button_style, unsafe_allow_html=True)
 
-        prediction = st.button("Predict")
+        col1b, col2b = st.columns(2)
+        with col1b:
+            prediction = st.button("Predict")
+        with col2b:
+            if st.button('Reset'):
+                st.experimental_rerun()
 
     if prediction:
 

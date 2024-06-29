@@ -17,4 +17,4 @@ Steps to Install:
 1. Install libraries using "pip install -r requirements.txt"
 2. Run Streamlit app using "streamlit run app.py"
 3. Use web app
-4. Open employee_promotion_prediction.pdf to study about data analysis
+4. Open employee_promotion_prediction.pdf to understand machine learning project in detail.

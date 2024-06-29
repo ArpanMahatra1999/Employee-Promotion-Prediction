@@ -99,9 +99,7 @@ def input_data_to_prediction(input_data):
     important_features = get_important_features(input_data)
     scaled_features = scale_features(important_features)
     prediction = model_predict(scaled_features)
-    if prediction[0] == 1:
-        return f"Congratulations! you deserve promotion."
-    return f"Sorry! you couldn't be promoted. You need to work harder to fulfill promotion criteria."
+    return prediction[0]
 
 
 

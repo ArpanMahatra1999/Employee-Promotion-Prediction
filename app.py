@@ -18,99 +18,101 @@ def main():
     # app
     st.set_page_config(
         page_title="Employee Promotion Prediction",
-        page_icon="🧑‍💻")
+        page_icon="🧑‍💻",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
 
-    # add heading title
-    title_style = """
-    <style>
-        h1 {
-            color: rgb(255, 75, 75);
-        }
-    </style>
-    """
-    st.markdown(title_style, unsafe_allow_html=True)
-    st.title("Employee Promotion Prediction")
-    st.markdown("<hr>", unsafe_allow_html=True)
+    with st.sidebar:
+        # add heading title
+        st.title("Employee Promotion Prediction App")
 
-    # add image
-    st.image("https://miro.medium.com/v2/resize:fit:1358/1*0gdGTwKAx9LttecXFa3Bhw.png", caption='EPPA', use_column_width=True)
+        # user inputs
+        input_data = list()
+        input_data.append(int(st.number_input("Employee ID:", min_value=0, value=0)))
+        input_data.append(st.selectbox("Department:", options=[
+            'Analytics', 'Finance', 'HR', 'Legal', 'Operations', 'Procurement', 'R&D',
+            'Sales & Marketing', 'Technology'
+             ]))
+        input_data.append(st.selectbox("Region:", options=[
+            'region_1', 'region_2', 'region_3', 'region_4', 'region_5', 'region_6', 'region_7',
+            'region_8', 'region_9', 'region_10', 'region_11', 'region_12', 'region_13', 'region_14',
+            'region_15', 'region_16', 'region_17', 'region_18', 'region_19', 'region_20', 'region_21',
+            'region_22', 'region_23', 'region_24', 'region_25', 'region_26', 'region_27', 'region_28',
+            'region_29', 'region_30', 'region_31', 'region_32', 'region_33', 'region_34'
+        ]))
+        input_data.append(st.selectbox("Education:", options=[
+            "Below Secondary", "Bachelor's", "Master's & above"
+        ]))
+        input_data.append("m" if st.selectbox("Gender:", options=["Male", "Female"]) == "Male" else "f")
+        input_data.append(st.selectbox("Recruitment Channel:", options=[
+            "Sourcing", "Referred", "Other"
+        ]).lower())
+        input_data.append(int(st.number_input("No of Trainings:", min_value=0, value=0)))
+        input_data.append(int(st.number_input("Age:", min_value=18, value=18)))
+        input_data.append(float(st.slider("Previous Year Rating:", min_value=1, max_value=5, value=1)))
+        input_data.append(int(st.number_input("Length of Service:", min_value=1, value=1)))
+        input_data.append(1 if st.selectbox("Awards Won:", options=["Yes", "No"]) == "Yes" else 0)
+        input_data.append(int(st.slider("Average Training Score: ", min_value=0, max_value=100, value=50)))
 
-    # user inputs
-    input_data = list()
-    input_data.append(int(st.number_input("Employee ID:", min_value=0, value=0)))
-    input_data.append(st.selectbox("Department:", options=[
-        'Analytics', 'Finance', 'HR', 'Legal', 'Operations', 'Procurement', 'R&D',
-        'Sales & Marketing', 'Technology'
-         ]))
-    input_data.append(st.selectbox("Region:", options=[
-        'region_1', 'region_2', 'region_3', 'region_4', 'region_5', 'region_6', 'region_7',
-        'region_8', 'region_9', 'region_10', 'region_11', 'region_12', 'region_13', 'region_14',
-        'region_15', 'region_16', 'region_17', 'region_18', 'region_19', 'region_20', 'region_21',
-        'region_22', 'region_23', 'region_24', 'region_25', 'region_26', 'region_27', 'region_28',
-        'region_29', 'region_30', 'region_31', 'region_32', 'region_33', 'region_34'
-    ]))
-    input_data.append(st.selectbox("Education:", options=[
-        "Below Secondary", "Bachelor's", "Master's & above"
-    ]))
-    input_data.append("m" if st.selectbox("Gender:", options=["Male", "Female"]) == "Male" else "f")
-    input_data.append(st.selectbox("Recruitment Channel:", options=[
-        "Sourcing", "Referred", "Other"
-    ]).lower())
-    input_data.append(int(st.number_input("No of Trainings:", min_value=0, value=0)))
-    input_data.append(int(st.number_input("Age:", min_value=18, value=18)))
-    input_data.append(float(st.slider("Previous Year Rating:", min_value=1, max_value=5, value=1)))
-    input_data.append(int(st.number_input("Length of Service:", min_value=1, value=1)))
-    input_data.append(1 if st.selectbox("Awards Won:", options=["Yes", "No"]) == "Yes" else 0)
-    input_data.append(int(st.slider("Average Training Score: ", min_value=0, max_value=100, value=50)))
-
-    st.write("Filter Analysis by:")
-    col_d, col_r, col_rc = st.columns(3)
-
-    with col_d:
+        st.write("Filter Analysis by:")
         department = st.checkbox("department")
-
-    with col_r:
         region = st.checkbox("region")
-
-    with col_rc:
         recruitment_channel = st.checkbox("recruitment channel")
 
 
-    st.markdown("<hr>", unsafe_allow_html=True)
+        # prediction
+        button_style = '''
+        <style>
+        .stButton>button {
+            width: 150px;
+            height: 60px;
+        }
+        </style>
+        '''
+        st.markdown(button_style, unsafe_allow_html=True)
 
-    # prediction
-    button_style = '''
-    <style>
-    .stButton>button {
-        width: 150px;
-        height: 60px;
-    }
-    </style>
-    '''
-    st.markdown(button_style, unsafe_allow_html=True)
-    if st.button("Predict"):
+        prediction = st.button("Predict")
+
+    if prediction:
+
+        # results
+        st.header("Results")
+
         result = input_data_to_prediction(input_data)
-        st.write(result)
+        if result == 1:
+            st.success("Congratulations! you deserve promotion.")
+        st.error("Sorry! you couldn't be promoted. You need to work harder to fulfill promotion criteria.")
 
         # defining and filtering dataframe
         df = pd.read_csv("datasets/train.csv")
         df = df.dropna()
 
         # filters
+        columns_to_filter = []
+
         if department:
             df = df[df['department'] == input_data[1]]
+            columns_to_filter.append('department')
 
         if region:
             df = df[df['region'] == input_data[2]]
+            columns_to_filter.append('region')
 
         if recruitment_channel:
             df = df[df['recruitment_channel'] == input_data[5]]
+            columns_to_filter.append('recruitment_channel')
 
-        # data visualization
-        st.markdown(
-            "<h2 style='text-align: center;'>Visualization</h2>",
-            unsafe_allow_html=True
-        )
+        if len(columns_to_filter) == 0:
+            st.write("Other employees' records:")
+        elif len(columns_to_filter) == 1:
+            st.write(f"Other employees' records with similar {columns_to_filter[0]}:")
+        elif len(columns_to_filter) == 2:
+            st.write(f"Other employees' records with similar {columns_to_filter[0]} and {columns_to_filter[1]}:")
+        else:
+            st.write(f"Other employees' records with similar {columns_to_filter[0]}, {columns_to_filter[1]} and {columns_to_filter[2]}:")
+        df_to_show = df.drop(columns_to_filter + ["employee_id"], axis=1)
+        st.write(df_to_show.sample(10))
 
         # first row
         col1, col2, col3 = st.columns(3)
@@ -204,6 +206,39 @@ def main():
         plt.ylabel('%')
         plt.title(f"Promotion by {column}")
         st.pyplot(plt)
+    else:
+        st.title("Welcome to EPPA!")
+
+        col1i, col2i = st.columns(2)
+
+        with col1i:
+            st.header("Introduction")
+            st.markdown(
+                '<div style="text-align: justify; padding-right: 20px">Employee Promotion Prediction is the binary classification problem focused on considering key parameters including trainings, age, ratings, etc for predicting promotion of company employees. For this, comparative analysis was made between decision tree and 5 ensemble learning algorithms (Bagging, AdaBoost, Gradient Boosting, Random Forest and Voting classifiers) and best model was exported for Streamlit web application deployment.</div>',
+                unsafe_allow_html=True)
+
+        with col2i:
+            st.image("images/intro.png", use_column_width=True)
+
+        # add steps
+        st.header("Steps")
+        st.write("""
+        This web application is simpler to use.
+        1. Fill form on the left sidebar and click 'Predict' button.
+        2. See the results with promotion prediction, table with similar records and visualizations.""")
+
+        st.header("Important Links")
+        st.write("To test and know more about project, please go through links below:")
+        st.write("""
+        - Blog: https://arpanmahatra.hashnode.dev/employee-promotion-prediction-using-decision-tree-ensemble-learning-algorithms
+        - Github: https://github.com/ArpanMahatra1999/Employee-Promotion-Prediction
+        """)
+
+        st.header("References")
+        st.write("""
+        - “HR Analytics: Employee Promotion Data.” Www.kaggle.com, www.kaggle.com/datasets/arashnic/hr-ana.
+        - “Why Promoting People for Loyalty Is a Bad Idea.” Yahoo Finance, 4 Dec. 2019, https://uk.finance.yahoo.com/news/why-promoting-people-for-loyalty-is-a-bad-idea-120321494.html.
+        """)
 
 
 if __name__ == '__main__':

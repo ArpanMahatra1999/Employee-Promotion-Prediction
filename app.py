@@ -216,7 +216,7 @@ def main():
             plt.title(f"Promotion by {column}")
             st.pyplot(plt)
     else:
-        st.title("Emotion Promotion Prediction App")
+        st.title("Employee Promotion Prediction App")
         st.subheader("Welcome to EPPA!")
 
         col1i, col2i = st.columns(2)

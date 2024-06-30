@@ -88,7 +88,8 @@ def main():
         result = input_data_to_prediction(input_data)
         if result == 1:
             st.success("Congratulations! you deserve promotion.")
-        st.error("Sorry! you couldn't be promoted. You need to work harder to fulfill promotion criteria.")
+        else:
+            st.error("Sorry! you couldn't be promoted. You need to work harder to fulfill promotion criteria.")
 
         # defining and filtering dataframe
         df = pd.read_csv("datasets/train.csv")
